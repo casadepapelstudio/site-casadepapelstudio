@@ -160,6 +160,130 @@ function KidsRoomCarousel() {
   );
 }
 
+const CAROUSEL_IMAGES_BY_SERVICE: Record<string, { url: string; label: string }[]> = {
+  'envelopamento-moveis': [
+    { url: 'https://drive.google.com/thumbnail?id=1rDcKofIZcPfedBDhkiGvMP0WwGDgGCio&sz=w1200', label: 'ANTES' },
+    { url: 'https://drive.google.com/thumbnail?id=1NdB2Pdi2zO03L4gszpTd7jFQvMNi0YAg&sz=w1200', label: 'DEPOIS' },
+    { url: 'https://drive.google.com/thumbnail?id=1wg8etGLluZUJDnLhUqPVyp1VjlTrQPB5&sz=w1200', label: 'ANTES' },
+    { url: 'https://drive.google.com/thumbnail?id=1w5bzwvIoQqYULf5CY24Eu0nqyQ5KLYxU&sz=w1200', label: 'DEPOIS' }
+  ],
+  'portas-marcos': [
+    { url: 'https://drive.google.com/thumbnail?id=1UAgnIUp5BsdikqEoRXbRZrA5WDZ7h2t3&sz=w1200', label: 'ANTES' },
+    { url: 'https://drive.google.com/thumbnail?id=1bgPy7_pw2LMLIckp3QZqtfhFQqZhbkAM&sz=w1200', label: 'DEPOIS' },
+    { url: 'https://drive.google.com/thumbnail?id=1F_wOIUjDNUns5b9Qu6S2cUqWZ_Dhnspl&sz=w1200', label: 'ANTES' },
+    { url: 'https://drive.google.com/thumbnail?id=174rXnPiDYYxgKWn0n2p2v4T2SlGqG8gj&sz=w1200', label: 'DEPOIS' }
+  ],
+  'eletrodomesticos': [
+    { url: 'https://drive.google.com/thumbnail?id=1H5rm8PyU9mjHzKZHSM0_oBgwygxweTLM&sz=w1200', label: 'ANTES' },
+    { url: 'https://drive.google.com/thumbnail?id=17HcQaqEXBfNQ0ZB4yjOrMDVlehFkyLZe&sz=w1200', label: 'DEPOIS' }
+  ]
+};
+
+interface ServiceCarouselProps {
+  images: { url: string; label: string }[];
+  serviceTitle: string;
+}
+
+function ServiceCarousel({ images, serviceTitle }: ServiceCarouselProps) {
+  const [[page, direction], setPage] = useState([0, 0]);
+
+  const currentIndex = ((page % images.length) + images.length) % images.length;
+
+  const paginate = (newDirection: number) => {
+    setPage([page + newDirection, newDirection]);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      paginate(1);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [page, images.length]);
+
+  return (
+    <div className="relative aspect-square w-full overflow-hidden border border-white/5 group">
+      <AnimatePresence initial={false} custom={direction}>
+        <motion.div
+          key={page}
+          custom={direction}
+          variants={slideVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={{
+            x: { type: "spring", stiffness: 300, damping: 30 },
+            opacity: { duration: 0.2 }
+          }}
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={1}
+          onDragEnd={(_e, { offset, velocity }) => {
+            const swipe = swipePower(offset.x, velocity.x);
+
+            if (swipe < -swipeConfidenceThreshold) {
+              paginate(1);
+            } else if (swipe > swipeConfidenceThreshold) {
+              paginate(-1);
+            }
+          }}
+          className="absolute inset-0"
+        >
+          <img 
+            src={images[currentIndex].url} 
+            alt={`${serviceTitle} - ${images[currentIndex].label}`} 
+            className="w-full h-full object-cover select-none pointer-events-none" 
+            referrerPolicy="no-referrer"
+          />
+        </motion.div>
+      </AnimatePresence>
+
+      <div className="absolute top-4 right-4 z-20 px-3 py-1 bg-black/80 backdrop-blur-sm border border-gold-400/30 text-[10px] font-mono font-bold tracking-widest text-[#c1a06f] uppercase">
+        {images[currentIndex].label}
+      </div>
+
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          paginate(-1);
+        }}
+        className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#111111]/70 border border-gold-400/20 text-white hover:text-gold-400 flex items-center justify-center opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all focus:outline-none hover:bg-[#111111]/90 cursor-pointer"
+        aria-label="Previous image"
+      >
+        <ChevronLeft className="w-4 h-4" />
+      </button>
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          paginate(1);
+        }}
+        className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#111111]/70 border border-gold-400/20 text-white hover:text-gold-400 flex items-center justify-center opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all focus:outline-none hover:bg-[#111111]/90 cursor-pointer"
+        aria-label="Next image"
+      >
+        <ChevronRight className="w-4 h-4" />
+      </button>
+
+      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex gap-1.5 bg-black/30 px-2.5 py-1 rounded-full">
+        {images.map((_, idx) => (
+          <button
+            key={idx}
+            onClick={(e) => {
+              e.stopPropagation();
+              const diff = idx - currentIndex;
+              if (diff !== 0) {
+                setPage([page + diff, diff > 0 ? 1 : -1]);
+              }
+            }}
+            className={`w-1.5 h-1.5 rounded-full transition-all focus:outline-none cursor-pointer ${
+              idx === currentIndex ? 'bg-gold-400 w-3' : 'bg-white/40'
+            }`}
+            aria-label={`Go to slide ${idx + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 const WHATSAPP_NUMBER = '5531982356251';
 const LINK_TETO_AMADEIRADO = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Olá! Gostaria de um orçamento para Teto Amadeirado.')}`;
 const LINK_QUARTO_INFANTIL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Olá! Gostaria de um orçamento para Quarto Infantil Personalizado.')}`;
@@ -977,7 +1101,7 @@ export default function App() {
               Portfólio Completo de Serviços
             </h2>
             <p className="text-gray-400 font-light text-base leading-relaxed">
-              Trabalhamos exclusivamente com revestimento vinílico de alto padrão. Nossa aplicação a seco garante cantos impermeáveis sem bolhas, finalização expressa e garantia total pós-instalação.
+              Trabalhamos exclusivamente com revestimento vinílico de alto padrão. A solução completa para renovar superfícies sem obra, com aplicação a seco que garante cantos impermeáveis sem bolhas, finalização expressa e garantia total pós-instalação.
             </p>
           </div>
 
@@ -1118,47 +1242,96 @@ export default function App() {
             })}
           </div>
 
-          {/* DEMAIS SERVIÇOS GRID (Order Priority 3 to 6 in compact grid) */}
-          <div className="space-y-8">
-            <div>
-              <span className="text-[10px] text-gold-400 font-mono tracking-widest uppercase font-bold block">
-                Soluções em Revestimento Vinílico
-              </span>
-              <h3 className="text-xl sm:text-2xl font-serif text-white font-normal mt-1">
-                A solução completa para renovar superfícies sem obra
-              </h3>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {SERVICES.filter(s => !s.featured).map((service) => (
+          {/* DEMAIS SERVIÇOS GRID (Order Priority 3 to 6 as Full-Width Blocks matching Quarto Infantil) */}
+          <div className="space-y-12 sm:space-y-16">
+            {SERVICES.filter(s => !s.featured).map((service, index) => {
+              const isEven = index % 2 === 0;
+              const images = CAROUSEL_IMAGES_BY_SERVICE[service.id] || [];
+              return (
                 <div 
                   key={service.id}
-                  className="bg-[#0e0e0e] border border-white/5 p-5 flex flex-col justify-between hover:border-gold-400/20 transition relative group h-full min-h-0"
+                  className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center bg-[#0e0e0e] border border-white/5 p-6 sm:p-10 lg:p-12 relative group overflow-hidden hover:border-gold-400/30 transition duration-500"
                 >
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between min-h-[14px]">
-                      {service.id === 'portas-vidro-divisorias' && <Shield className="w-3.5 h-3.5 text-blue-400" />}
+                  {/* Glowing light from top corners */}
+                  <div className="absolute -top-12 -right-12 w-28 h-28 bg-gold-400/5 rounded-full filter blur-2xl group-hover:bg-gold-400/10 transition pointer-events-none" />
+
+                  {/* Content Column */}
+                  <div className={`space-y-4 sm:space-y-5 order-1 ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
+                    <div className="flex justify-between items-start">
+                      <span className="text-[10px] text-gray-500 font-mono uppercase tracking-widest font-bold">
+                        Casa de Papel Studio &bull; Soluções Premium
+                      </span>
                     </div>
-                    <h4 className="text-base font-serif text-white font-medium group-hover:text-gold-400 transition">
-                      {service.title}
-                    </h4>
-                    <p className="text-xs text-gray-400 font-light leading-relaxed">
-                      {service.summary} {service.description}
+
+                    <div className="space-y-1">
+                      <h4 className="text-2xl sm:text-3xl font-serif text-white font-normal tracking-tight group-hover:text-gold-400 transition duration-300">
+                        {service.title}
+                      </h4>
+                      <p className="text-gold-400/95 text-xs tracking-wider uppercase font-mono font-bold italic">
+                        {service.tagline}
+                      </p>
+                    </div>
+
+                    <p className="text-gray-300 font-light text-sm leading-relaxed">
+                      {service.summary}
                     </p>
+
+                    <div className="space-y-1.5 pt-3 border-t border-white/5">
+                      <span className="text-[10px] text-gray-400 font-mono uppercase tracking-widest block font-bold">
+                        Destaques técnicos:
+                      </span>
+                      {(service.id === 'envelopamento-moveis'
+                        ? [
+                            'Ampla variedade de cores e texturas seguindo as tendências do mercado.',
+                            'Cantos com acabamento térmico hermético e sem emendas aparentes.',
+                            'Material altamente resistente ao manuseio diário, água e riscos do cotidiano.'
+                          ]
+                        : service.benefits.slice(0, 3)
+                      ).map((benefit, i) => (
+                        <div key={i} className="flex items-start gap-2 text-xs text-gray-400 font-sans">
+                          <Check className="w-3.5 h-3.5 text-gold-400 shrink-0 mt-0.5" />
+                          <span>{benefit}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Action buttons closely integrated */}
+                    <div className="flex items-center gap-4 pt-3 shrink-0">
+                      <a
+                        href={`https://wa.me/5531982356251?text=${encodeURIComponent(`Olá! Gostaria de um orçamento para o serviço de ${service.title}`)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 max-w-[240px] py-3.5 bg-gradient-to-r from-gold-400 to-gold-500 text-black text-center text-xs font-mono font-bold uppercase tracking-widest hover:opacity-95 transition block cursor-pointer flex items-center justify-center"
+                      >
+                        Solicitar Orçamento
+                      </a>
+                      <button
+                        onClick={() => setActiveServiceModal(service)}
+                        className="px-4 py-3.5 hover:text-gold-400 text-xs text-white/90 font-bold uppercase tracking-widest transition cursor-pointer border-none bg-transparent whitespace-nowrap outline-none"
+                      >
+                        Ficha Técnica
+                      </button>
+                    </div>
                   </div>
 
-                  <a 
-                    href={`https://wa.me/5531982356251?text=${encodeURIComponent(`Olá! Gostaria de um orçamento para o serviço de ${service.title}`)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[10px] text-gold-400 group-hover:text-gold-200 transition uppercase tracking-widest font-mono font-bold flex items-center justify-start gap-1 cursor-pointer outline-none pt-2.5 mt-auto"
-                  >
-                    <span>SOLICITAR ORÇAMENTO</span>
-                    <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transform transition" />
-                  </a>
+                  {/* Image Column */}
+                  <div className={`order-2 ${isEven ? 'lg:order-2' : 'lg:order-1'} w-full`}>
+                    <div className="aspect-square w-full overflow-hidden border border-white/10 shadow-2xl bg-[#0c0c0c]">
+                      {images.length > 0 ? (
+                        <ServiceCarousel images={images} serviceTitle={service.title} />
+                      ) : (
+                        <img 
+                          src={service.imageUrl} 
+                          alt={service.title} 
+                          className="w-full h-full object-cover transition duration-700 group-hover:scale-103" 
+                          referrerPolicy="no-referrer"
+                        />
+                      )}
+                    </div>
+                  </div>
                 </div>
-              ))}
-            </div>
+              );
+            })}
           </div>
         </div>
 
@@ -1196,9 +1369,6 @@ export default function App() {
                     <div className="space-y-6">
                       <div className="flex justify-between items-start">
                         <div>
-                          {activeServiceModal.id !== 'teto-amadeirado' && activeServiceModal.id !== 'quarto-infantil' && (
-                            <span className="text-[11px] text-gold-400 uppercase font-mono tracking-widest font-bold block">Memorial Técnico</span>
-                          )}
                           <h3 className="text-2xl font-serif text-white font-normal mt-1">Ficha Técnica</h3>
                         </div>
                         <button 

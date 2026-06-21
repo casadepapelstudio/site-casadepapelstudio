@@ -82,63 +82,53 @@ export const SERVICES: ServiceItem[] = [
     category: 'renovacao',
     priority: 3,
     featured: false,
-    tagline: 'Restauração Sustentável de Alto Padrão',
+    tagline: 'RESTAURAÇÃO SUSTENTÁVEL DE ALTO PADRÃO',
     summary: 'Guarda-roupas, armários planejados, cômodas e painéis transformados com tons foscos premium ou texturas sofisticadas. Uma nova vida para seus móveis sem reforma, com acabamento profissional e durabilidade.',
-    description: '',
+    description: 'Trabalhamos com revestimento vinílico autoadesivo de alta performance, composto por película polimérica resistente com espessura de 150 a 160 micras, acabamento fosco e adesivo de alta aderência integrado. O material tem excelente maleabilidade térmica para moldar cantos perfeitamente, eliminando o risco de descolar ou formar bolhas no dia a dia.',
     benefits: [
-      'Cores foscas sóbrias (Cinza Sagrada, Grafite, Off-white)',
-      'Cantos com acabamento térmico hermético e contínuo',
-      'Resistente ao manuseio diário'
+      'Cores e texturas que acompanham as tendências (tons pastéis, amadeirados e foscos premium).',
+      'Cantos com acabamento térmico hermético, contínuo e sem emendas aparentes.',
+      'Material altamente resistente ao manuseio diário, água e riscos do cotidiano.',
+      'Fácil limpeza com pano úmido e sabão neutro sem danificar a película.',
+      'Economia de até 70% comparado à compra de móveis planejados novos.'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1588854337236-6889d631faa8?auto=format&fit=crop&q=80&w=600'
-  },
-  {
-    id: 'portas-vidro-divisorias',
-    title: 'Portas de Vidro e Divisórias',
-    category: 'renovacao',
-    priority: 4,
-    featured: false,
-    tagline: 'Resistência Total contra Umidade e Manchas',
-    summary: 'Envelopamento parcial ou total com vinil jateado premium. Ideal para garantir privacidade e sofisticação em portas de vidro, divisórias de escritórios e janelas, mantendo a luminosidade com um acabamento elegante e uniforme.',
-    description: '',
-    benefits: [
-      'Alta vedação contra umidade infiltrante',
-      'Tecnologia anti-bolha de instalação profissional',
-      'Visual marmorizado calacatta ou carrara fosco super realista'
-    ],
-    imageUrl: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=800'
+    imageUrl: 'https://drive.google.com/thumbnail?id=1CvWzQ1tiznMO5R8ZcvhJ5AQ6wfdrKlum&sz=w1200'
   },
   {
     id: 'portas-marcos',
-    title: 'Portas de Madeira e Marcos',
+    title: 'Portas e Marcos',
     category: 'renovacao',
-    priority: 5,
+    priority: 4,
     featured: false,
-    tagline: 'A Primeira Impressão de um Imóvel Renovada',
-    summary: 'Renovação completa de portas de madeira e marcos (batentes) com revestimento vinílico de alta fidelidade. Transformamos o visual de portas de entrada ou internas sem a necessidade de troca ou pintura, garantindo um acabamento impecável e resistente.',
-    description: '',
+    tagline: 'A PRIMEIRA IMPRESSÃO DE UM IMÓVEL RENOVADA',
+    summary: 'Renovação completa de portas e marcos (batentes) com revestimento vinílico de alta fidelidade. Transformamos o visual de portas de entrada ou internas sem a necessidade de troca ou pintura, garantindo um acabamento impecável e resistente.',
+    description: 'Envelopamento termo-moldado de alta aderência para portas e marcos residenciais. Oferece resistência superior a impactos cotidianos, não amarela com o passar dos anos e protege totalmente a madeira antiga de umidade infiltrada.',
     benefits: [
-      'Estabilidade térmica das bordas do vinil',
-      'Opções anti-ruído ou jateado blackout estético para escritórios',
-      'Padrão tátil e visual impecável'
+      'Estabilidade térmica impecável nas bordas e rebaixos do batente/marco',
+      'Visual e sensação idênticos aos da madeira natural de alta arquitetura',
+      'Revestimento impermeável que protege contra a ação da umidade e facilita a limpeza diária',
+      'Acabamento suave ao toque e extremamente duradouro, sem descascar',
+      'Fim da poeira e do cheiro de solvente ou tintas no seu ambiente'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=600'
+    imageUrl: 'https://drive.google.com/thumbnail?id=1qAYGJiRqdz_xcwUPDSmqhn46nGm4ACfp&sz=w1200'
   },
   {
     id: 'eletrodomesticos',
     title: 'Geladeiras e Freezers',
     category: 'renovacao',
-    priority: 6,
+    priority: 5,
     featured: false,
     tagline: 'Seus Equipamentos em Sintonia com a Cozinha',
     summary: 'Envelopamento de geladeiras e freezers com acabamentos como Aço Escovado, Preto, Carbono ou cores retrô. Oferecemos também personalização total com temas de marcas de cervejas, whiskys e artes exclusivas para sua área gourmet, renovando o visual com estilo e proteção.',
-    description: '',
+    description: 'Trabalhamos com diferentes tipos de película vinílica de alta performance (automotiva, impressa e escovada), selecionadas conforme a necessidade de cada projeto. Microcanais de vazão antibolha garantem aplicação precisa e acabamento profissional.',
     benefits: [
-      'Tratamento prévio de pontos de oxidação',
-      'Película resistente a raios UV e calor local',
-      'Fácil higienização com esponja macia'
+      'Materiais com alta maleabilidade térmica para envolver curvas e cantos sem descolar',
+      'Películas com alta resistência a raios UV, gordura, calor local e umidade',
+      'Opções de acabamentos nobres como Aço Escovado, Black Piano ou Retrô',
+      'Fácil higienização com pano macio e detergente comum',
+      'Combinação harmônica perfeita de cores modernas combinando com sua cozinha'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=600'
+    imageUrl: 'https://drive.google.com/thumbnail?id=17HcQaqEXBfNQ0ZB4yjOrMDVlehFkyLZe&sz=w1200'
   }
 ];
 
