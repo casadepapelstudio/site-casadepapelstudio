@@ -29,7 +29,9 @@ import {
   Shield,
   Clock,
   Instagram as InstagramIcon,
-  HardHat
+  HardHat,
+  Upload,
+  Video
 } from 'lucide-react';
 
 const KIDS_ROOM_IMAGES = [
@@ -140,6 +142,131 @@ function KidsRoomCarousel() {
 
       <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex gap-1.5 bg-black/30 px-2.5 py-1 rounded-full">
         {KIDS_ROOM_IMAGES.map((_, idx) => (
+          <button
+            key={idx}
+            onClick={(e) => {
+              e.stopPropagation();
+              const diff = idx - currentIndex;
+              if (diff !== 0) {
+                setPage([page + diff, diff > 0 ? 1 : -1]);
+              }
+            }}
+            className={`w-1.5 h-1.5 rounded-full transition-all focus:outline-none cursor-pointer ${
+              idx === currentIndex ? 'bg-gold-400 w-3' : 'bg-white/40'
+            }`}
+            aria-label={`Go to slide ${idx + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+const CUSTOM_WALLPAPER_IMAGES = [
+  'https://drive.google.com/thumbnail?id=1rfoaRCjJckPSMnNCqjMLl6Z86GGsxypv&sz=w1200',
+  'https://drive.google.com/thumbnail?id=1ijMp38HA7BbMl8FA8EoSrFyyT91y5Acr&sz=w1200',
+  'https://drive.google.com/thumbnail?id=1bs6uE2yLhp7KBforuHfFdqyS7_NTwcd7&sz=w1200',
+  'https://drive.google.com/thumbnail?id=1X19F4xk0KR5xVqawTlgQzurGNrskcPYO&sz=w1200',
+  'https://drive.google.com/thumbnail?id=1Qi7wH1mMCAMZ1mbS9xfjc7D5X_co76iD&sz=w1200',
+  'https://drive.google.com/thumbnail?id=1wdRHUfdC2aQQPeNS2JbIPNHi6QdjXBll&sz=w1200'
+];
+
+function CustomWallpaperCarousel() {
+  const [[page, direction], setPage] = useState([0, 0]);
+
+  const currentIndex = ((page % CUSTOM_WALLPAPER_IMAGES.length) + CUSTOM_WALLPAPER_IMAGES.length) % CUSTOM_WALLPAPER_IMAGES.length;
+
+  const paginate = (newDirection: number) => {
+    setPage([page + newDirection, newDirection]);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      paginate(1);
+    }, 4500);
+    return () => clearInterval(interval);
+  }, [page]);
+
+  return (
+    <div className="relative aspect-square w-full max-w-sm mx-auto lg:max-w-md overflow-hidden border border-white/10 bg-[#070707] flex flex-col items-center justify-center group shadow-2xl rounded-none">
+      <AnimatePresence initial={false} custom={direction}>
+        <motion.div
+          key={page}
+          custom={direction}
+          variants={slideVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={{
+            x: { type: "spring", stiffness: 300, damping: 30 },
+            opacity: { duration: 0.2 }
+          }}
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={1}
+          onDragEnd={(_e, { offset, velocity }) => {
+            const swipe = swipePower(offset.x, velocity.x);
+
+            if (swipe < -swipeConfidenceThreshold) {
+              paginate(1);
+            } else if (swipe > swipeConfidenceThreshold) {
+              paginate(-1);
+            }
+          }}
+          className="absolute inset-0"
+        >
+          <img 
+            src={CUSTOM_WALLPAPER_IMAGES[currentIndex]} 
+            alt={`Papel de Parede Personalizado ${currentIndex + 1}`} 
+            className="w-full h-full object-cover select-none pointer-events-none" 
+            referrerPolicy="no-referrer"
+          />
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Visual gradient cover */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40 pointer-events-none z-10" />
+
+      {/* Top badges */}
+      <div className="absolute top-4 left-4 right-4 flex justify-between items-center z-20 pointer-events-none">
+        <div className="flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-2.5 py-1 border border-white/5 text-[9px] font-mono tracking-widest uppercase text-gold-400">
+          <span className="w-1.5 h-1.5 bg-gold-400 rounded-full animate-pulse" />
+          Destaque Premium
+        </div>
+        <div className="text-[9px] font-mono text-white/60 bg-black/40 px-2 py-0.5 backdrop-blur-sm">
+          {currentIndex + 1} / {CUSTOM_WALLPAPER_IMAGES.length}
+        </div>
+      </div>
+
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          paginate(-1);
+        }}
+        className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#111111]/70 border border-gold-400/20 text-white hover:text-gold-400 flex items-center justify-center opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all focus:outline-none hover:bg-[#111111]/90 cursor-pointer"
+        aria-label="Previous image"
+      >
+        <ChevronLeft className="w-4 h-4" />
+      </button>
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          paginate(1);
+        }}
+        className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#111111]/70 border border-gold-400/20 text-white hover:text-gold-400 flex items-center justify-center opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all focus:outline-none hover:bg-[#111111]/90 cursor-pointer"
+        aria-label="Next image"
+      >
+        <ChevronRight className="w-4 h-4" />
+      </button>
+
+      {/* Bottom badge */}
+      <div className="absolute bottom-4 left-4 z-20 flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-2.5 py-1.5 rounded-none border border-white/5 text-[10px] font-mono tracking-widest uppercase text-gold-400 pointer-events-none">
+        <span className="w-1.5 h-1.5 bg-gold-400 rounded-full animate-ping" />
+        Exclusividade Blackout
+      </div>
+
+      <div className="absolute bottom-4 right-4 z-20 flex gap-1.5 bg-black/30 px-2.5 py-1 rounded-full">
+        {CUSTOM_WALLPAPER_IMAGES.map((_, idx) => (
           <button
             key={idx}
             onClick={(e) => {
@@ -294,6 +421,20 @@ export default function App() {
   // Navigation states
   const [activeTab, setActiveTab] = useState('inicio');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Custom Video state for direct uploads or remote link
+  const [customVideoSrc, setCustomVideoSrc] = useState<string>('https://drive.google.com/uc?export=download&id=1lSbiKjHGDZw2sBrVkFvxhu0s5ppUjqhF');
+  const [videoLoadError, setVideoLoadError] = useState<boolean>(false);
+  const videoInputRef = useRef<HTMLInputElement>(null);
+
+  const handleVideoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setCustomVideoSrc(url);
+      setVideoLoadError(false);
+    }
+  };
 
   // Service drawer modal states
   const [activeServiceModal, setActiveServiceModal] = useState<ServiceItem | null>(null);
@@ -891,12 +1032,85 @@ export default function App() {
         </AnimatePresence>
       </header>
 
-      {/* HERO SECTION */}
+      {/* 1. SEÇÃO DE INTRODUÇÃO (TOPO DO SITE) */}
       <section 
         id="inicio"
-        className="relative min-h-screen flex items-center pt-24 px-6 overflow-hidden select-none bg-[#050505]"
+        className="relative pt-32 pb-8 px-6 bg-[#050505]"
+      >
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-8">
+          <div className="max-w-3xl space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-gold-400/10 border border-gold-400/20 text-gold-400 text-xs font-bold uppercase tracking-[0.15em]">
+              <span className="text-gold-400">✓</span> +5K SEGUIDORES NO INSTAGRAM
+            </div>
+            
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-normal text-white leading-tight tracking-tight">
+              Revestimento de <span className="text-gradient-gold font-medium italic">Alto Padrão</span>
+            </h1>
+            
+            <p className="text-gray-400 font-light text-base sm:text-lg leading-relaxed max-w-2xl font-sans">
+              Transformamos ambientes com a sofisticação do revestimento vinílico. Soluções sob medida que unem design de alto padrão e instalação limpa.
+            </p>
+          </div>
+          
+          <div className="md:max-w-xs w-full p-6 bg-[#0e0e0e] border border-white/5 flex flex-col gap-3 justify-center">
+            <div className="flex items-start gap-2.5 text-xs text-gray-400 font-light leading-relaxed">
+              <span className="text-gold-400 text-base">📍</span>
+              <div>
+                <span className="font-semibold text-white block mb-0.5">Atendimento Local &amp; Envio Nacional</span>
+                Atendimento especializado em Belo Horizonte e venda de papéis de parede personalizados para todo o Brasil.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. BLOCO: PAPEL DE PAREDE PERSONALIZADO (COM VÍDEO) */}
+      <section 
+        id="papel-personalizado" 
+        className="py-16 pb-24 px-6 bg-[#0a0a0a] border-t border-white/5 relative"
+      >
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          
+          {/* Custom Wallpaper Image Carousel - Configured for 1:1 aspect ratio with auto transition and drag support */}
+          <CustomWallpaperCarousel />
+
+          {/* Text and Actions */}
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <span className="text-xs uppercase tracking-[0.2em] text-gold-400 font-mono font-bold block">
+                Papel de Parede Personalizado
+              </span>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-white font-normal leading-tight">
+                Qualquer tema, qualquer arte, qualquer medida.
+              </h2>
+            </div>
+
+            <p className="text-gray-400 font-light text-base sm:text-lg leading-relaxed font-sans">
+              Criamos refúgios mágicos e ambientes exclusivos com impressão de altíssima resolução e tecnologia blackout. Do projeto do seu arquiteto direto para a sua parede, com acabamento impecável e envio para todo o Brasil.
+            </p>
+
+            <div className="pt-2">
+              <a 
+                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Olá! Gostaria de comprar um papel de parede personalizado.')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-8 py-4.5 bg-gradient-to-r from-gold-400 to-gold-500 text-black text-xs font-bold uppercase tracking-widest text-center shadow-lg shadow-gold-500/10 hover:opacity-95 transition hover:scale-[1.02] transform rounded-none cursor-pointer"
+              >
+                <MessageSquare className="w-4 h-4 fill-black" />
+                Comprar Arte Personalizada no WhatsApp
+              </a>
+            </div>
+          </div>
+          
+        </div>
+      </section>
+
+      {/* HERO SECTION */}
+      <section 
+        id="hero"
+        className="relative min-h-screen flex items-center pt-24 px-6 overflow-hidden select-none bg-[#050505] border-t border-white/5"
         style={{
-          background: 'radial-gradient(circle at 50% 30%, #151e18 0%, #050505 100%)'
+          background: 'radial-gradient(circle at 50% 30%, #0a0a0a 0%, #050505 100%)'
         }}
       >
         {/* Subtle grid pattern overlay */}
@@ -967,15 +1181,15 @@ export default function App() {
             >
               <div className="flex items-center gap-2">
                 <Check className="w-4 h-4 text-gold-400" />
-                <span>+3K SEGUIDORES</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-gold-400" />
                 <span>INSTALAÇÃO LIMPA</span>
               </div>
               <div className="flex items-center gap-2">
                 <Check className="w-4 h-4 text-gold-400" />
                 <span>PROJETO SOB MEDIDA</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Check className="w-4 h-4 text-gold-400" />
+                <span>SEM QUEBRA-QUEBRA</span>
               </div>
             </motion.div>
           </div>
@@ -1452,7 +1666,7 @@ export default function App() {
       </section>
 
       {/* BENCHMARK BENTO GRID (Luxury Architectural Focus) */}
-      <section id="diferenciais" className="py-28 px-6 bg-[#080808]">
+      <section id="diferenciais" className="py-28 px-6 bg-[#050505] border-t border-white/5">
         <div className="max-w-7xl mx-auto">
           
           <div className="max-w-xl mb-16 space-y-2">
@@ -1554,7 +1768,7 @@ export default function App() {
       </section>
 
       {/* PARCERIA COM ARQUITETOS */}
-      <section id="parceria" className="py-24 px-6 bg-[#080808] border-t border-white/5 relative">
+      <section id="parceria" className="py-24 px-6 bg-[#0a0a0a] border-t border-white/5 relative">
         <div className="max-w-4xl mx-auto glass-panel p-8 sm:p-12 relative overflow-hidden border border-gold-400/10 shadow-[0_0_40px_rgba(193,160,111,0.02)]">
           <div className="absolute -right-24 -top-24 w-48 h-48 bg-gold-400/5 rounded-full filter blur-3xl pointer-events-none" />
           
