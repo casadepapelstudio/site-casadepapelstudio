@@ -56,7 +56,7 @@ export const SERVICES: ServiceItem[] = [
       'Visual indistinguível da madeira natural, com textura fosca táctil',
       'Ideal para compor tetos com rasgos de luz e perfis em LED'
     ],
-    imageUrl: 'https://drive.google.com/thumbnail?id=12Mpd7SmBIvmoI77DJw84PkSKQEHZhTkq&sz=w1200'
+    imageUrl: 'https://drive.google.com/thumbnail?id=17kePHTB0Tcxe50n_HJdVMMLCbTrPhhIW&sz=w1200'
   },
   {
     id: 'quarto-infantil',
@@ -74,7 +74,7 @@ export const SERVICES: ServiceItem[] = [
       'Customização milimétrica — adaptamos para paredes interteiras, meia parede ou armários',
       'Desenhos exclusivos modernos de acordo com as tendências lúdicas mais elegantes'
     ],
-    imageUrl: 'https://drive.google.com/thumbnail?id=1d_OLv_YiKKn0dSnY8Hbt_hsldmuxEbJL&sz=w1200'
+    imageUrl: 'https://drive.google.com/thumbnail?id=1-fRb7i6wSMHk3GPlkDq4qe_soVHQhWIC&sz=w1200'
   },
   {
     id: 'envelopamento-moveis',
@@ -110,7 +110,7 @@ export const SERVICES: ServiceItem[] = [
       'Acabamento suave ao toque e extremamente duradouro, sem descascar',
       'Fim da poeira e do cheiro de solvente ou tintas no seu ambiente'
     ],
-    imageUrl: 'https://drive.google.com/thumbnail?id=1qAYGJiRqdz_xcwUPDSmqhn46nGm4ACfp&sz=w1200'
+    imageUrl: 'https://drive.google.com/thumbnail?id=1_zqKnByXRpnpthFhEOpC4k_WaDMFypP-&sz=w1200'
   },
   {
     id: 'eletrodomesticos',
@@ -128,7 +128,7 @@ export const SERVICES: ServiceItem[] = [
       'Fácil higienização com pano macio e detergente comum',
       'Combinação harmônica perfeita de cores modernas combinando com sua cozinha'
     ],
-    imageUrl: 'https://drive.google.com/thumbnail?id=17HcQaqEXBfNQ0ZB4yjOrMDVlehFkyLZe&sz=w1200'
+    imageUrl: 'https://drive.google.com/thumbnail?id=104mgifuHSAnjHa7X9WAzs1zNeAjUUUNO&sz=w1200'
   }
 ];
 

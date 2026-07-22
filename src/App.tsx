@@ -35,13 +35,14 @@ import {
 } from 'lucide-react';
 
 const KIDS_ROOM_IMAGES = [
-  'https://drive.google.com/thumbnail?id=1e2bFclxo5LQqUOaQZWENuCmNIXvbS5aT&sz=w1200',
-  'https://drive.google.com/thumbnail?id=1Q7-WJ8ljioAuFDUvOv1qwfWiu9ywEMtA&sz=w1200',
-  'https://drive.google.com/thumbnail?id=1MKUJnU-OqjsOlR9wh0IMqj1nV5U8Hnfr&sz=w1200',
-  'https://drive.google.com/thumbnail?id=1id76RJ9iuMVy4LqQZpajqi1kjwiqqiCK&sz=w1200',
-  'https://drive.google.com/thumbnail?id=1f_f04S3T2piexqCvu9g2RQununIVIB98&sz=w1200',
-  'https://drive.google.com/thumbnail?id=1GbDdFuhkAe1npSKh9I2RrncpzjxaoB1W&sz=w1200',
-  'https://drive.google.com/thumbnail?id=19xUUSfsN7QqGoh2y4CAf-IF6ngYpX_6N&sz=w1200'
+  'https://drive.google.com/thumbnail?id=1-fRb7i6wSMHk3GPlkDq4qe_soVHQhWIC&sz=w1200',
+  'https://drive.google.com/thumbnail?id=1xepnUJ5rSthxtPGD7PSWgUjTNVxGNcNa&sz=w1200',
+  'https://drive.google.com/thumbnail?id=1FAoPVYqs2oiRM4776bdroer5RhaiExeY&sz=w1200',
+  'https://drive.google.com/thumbnail?id=1EslXDbw00l6yRxQzCId9eUR0L6euD2C8&sz=w1200',
+  'https://drive.google.com/thumbnail?id=114l-j3Y7e4WdHthG2iMArDEE9qnEniPI&sz=w1200',
+  'https://drive.google.com/thumbnail?id=1MPZsP9aZiCpNeiwCItZPyFGRSpFEHXt3&sz=w1200',
+  'https://drive.google.com/thumbnail?id=1-08qFKaRGig4KVvUeZDEghZokykXXilN&sz=w1200',
+  'https://drive.google.com/thumbnail?id=1S-ul9WpeuLeMza-J07C6G7DndcM2FPvq&sz=w1200'
 ];
 
 const slideVariants = {
@@ -288,6 +289,14 @@ function CustomWallpaperCarousel() {
 }
 
 const CAROUSEL_IMAGES_BY_SERVICE: Record<string, { url: string; label: string }[]> = {
+  'teto-amadeirado': [
+    { url: 'https://drive.google.com/thumbnail?id=1gY9sTlDkXzhBZuJQCyEMiJTZZ6bLX81U&sz=w1200', label: 'ANTES' },
+    { url: 'https://drive.google.com/thumbnail?id=17kePHTB0Tcxe50n_HJdVMMLCbTrPhhIW&sz=w1200', label: 'DEPOIS' },
+    { url: 'https://drive.google.com/thumbnail?id=1BaGGHnW8j9_-jl6FyGmCxNRnC34GnTe3&sz=w1200', label: 'ANTES' },
+    { url: 'https://drive.google.com/thumbnail?id=1AQL14Q6dtcxz4pl6xVIKv2dLEKZYr2Dz&sz=w1200', label: 'DEPOIS' },
+    { url: 'https://drive.google.com/thumbnail?id=1gGxFTDodcGyxGWbyKkYT9RB06fgAJh8E&sz=w1200', label: 'ANTES' },
+    { url: 'https://drive.google.com/thumbnail?id=16VXSv1-jfwoDmXnhOMD0NKrKFzzbgDpF&sz=w1200', label: 'DEPOIS' }
+  ],
   'envelopamento-moveis': [
     { url: 'https://drive.google.com/thumbnail?id=1rDcKofIZcPfedBDhkiGvMP0WwGDgGCio&sz=w1200', label: 'ANTES' },
     { url: 'https://drive.google.com/thumbnail?id=1NdB2Pdi2zO03L4gszpTd7jFQvMNi0YAg&sz=w1200', label: 'DEPOIS' },
@@ -295,14 +304,16 @@ const CAROUSEL_IMAGES_BY_SERVICE: Record<string, { url: string; label: string }[
     { url: 'https://drive.google.com/thumbnail?id=1w5bzwvIoQqYULf5CY24Eu0nqyQ5KLYxU&sz=w1200', label: 'DEPOIS' }
   ],
   'portas-marcos': [
-    { url: 'https://drive.google.com/thumbnail?id=1UAgnIUp5BsdikqEoRXbRZrA5WDZ7h2t3&sz=w1200', label: 'ANTES' },
-    { url: 'https://drive.google.com/thumbnail?id=1bgPy7_pw2LMLIckp3QZqtfhFQqZhbkAM&sz=w1200', label: 'DEPOIS' },
-    { url: 'https://drive.google.com/thumbnail?id=1F_wOIUjDNUns5b9Qu6S2cUqWZ_Dhnspl&sz=w1200', label: 'ANTES' },
-    { url: 'https://drive.google.com/thumbnail?id=174rXnPiDYYxgKWn0n2p2v4T2SlGqG8gj&sz=w1200', label: 'DEPOIS' }
+    { url: 'https://drive.google.com/thumbnail?id=1ZU4oSQVEb26SLfAlQEtXCfVSj77bKRKH&sz=w1200', label: 'ANTES' },
+    { url: 'https://drive.google.com/thumbnail?id=1_zqKnByXRpnpthFhEOpC4k_WaDMFypP-&sz=w1200', label: 'DEPOIS' },
+    { url: 'https://drive.google.com/thumbnail?id=1R7B5uEEaidqcEAuYddIJW_xg2H3nGPCf&sz=w1200', label: 'ANTES' },
+    { url: 'https://drive.google.com/thumbnail?id=1oujO2HgOj6dIs3NGazn0FUMIYUhJB4N2&sz=w1200', label: 'DEPOIS' }
   ],
   'eletrodomesticos': [
-    { url: 'https://drive.google.com/thumbnail?id=1H5rm8PyU9mjHzKZHSM0_oBgwygxweTLM&sz=w1200', label: 'ANTES' },
-    { url: 'https://drive.google.com/thumbnail?id=17HcQaqEXBfNQ0ZB4yjOrMDVlehFkyLZe&sz=w1200', label: 'DEPOIS' }
+    { url: 'https://drive.google.com/thumbnail?id=1rXKnErMSwaJLlr2M6TFcslmwqymSjxQk&sz=w1200', label: 'ANTES' },
+    { url: 'https://drive.google.com/thumbnail?id=104mgifuHSAnjHa7X9WAzs1zNeAjUUUNO&sz=w1200', label: 'DEPOIS' },
+    { url: 'https://drive.google.com/thumbnail?id=1GaGcbDkwR50ifPzXCEuycHTA76GOl9C0&sz=w1200', label: 'ANTES' },
+    { url: 'https://drive.google.com/thumbnail?id=1TKv4yosYTWyZrcWAVZ4FlCCozPDQ8V9S&sz=w1200', label: 'DEPOIS' }
   ]
 };
 
@@ -443,22 +454,22 @@ export default function App() {
   const [carouselIndex, setCarouselIndex] = useState(0);
   const carouselImages = [
     {
-      url: 'https://drive.google.com/thumbnail?id=1YI4iSWkaCdMDjW6tK6nNhMkxWV_4e3c_&sz=w1200',
+      url: 'https://drive.google.com/thumbnail?id=1d-41F2fbHb3DnVTF0cfkULFMhl12Kkuk&sz=w1200',
       tagline: 'Teto Amadeirado',
       label: 'Sofisticação e Aconchego Únicos'
     },
     {
-      url: 'https://drive.google.com/thumbnail?id=1ywD3aIerqF6HHEAPWcGsxwR33IB5gNY2&sz=w1200',
+      url: 'https://drive.google.com/thumbnail?id=1p4nmcBSlgLpYMXG79_FKucK1VdxjnVrf&sz=w1200',
       tagline: 'Teto + Parede',
       label: 'Conexão e Continuidade Visual Flutuante'
     },
     {
-      url: 'https://drive.google.com/thumbnail?id=19edTZz_8Ei9FXehNyyyuiJchFSj_7upj&sz=w1200',
+      url: 'https://drive.google.com/thumbnail?id=1sK3qMf6pa2SBFMmh-C7WbCCqLDGkBL2o&sz=w1200',
       tagline: 'Teto Amadeirado',
       label: 'Elegância Minimalista com Carvalho Europeu'
     },
     {
-      url: 'https://drive.google.com/thumbnail?id=1nDflnafG5_jU9AZbbhgXgU6GQlSvlAmx&sz=w1200',
+      url: 'https://drive.google.com/thumbnail?id=1ntDJp3tWP3UG6-u11dsO7xYAoI8PNYnG&sz=w1200',
       tagline: 'Teto + Parede',
       label: 'Conceito Aberto Integrando Ambientes Nobres'
     }
@@ -1040,7 +1051,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-8">
           <div className="max-w-3xl space-y-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-gold-400/10 border border-gold-400/20 text-gold-400 text-xs font-bold uppercase tracking-[0.15em]">
-              <span className="text-gold-400">✓</span> +5K SEGUIDORES NO INSTAGRAM
+              <span className="text-gold-400">✓</span> +6K SEGUIDORES NO INSTAGRAM
             </div>
             
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-normal text-white leading-tight tracking-tight">
@@ -1441,6 +1452,8 @@ export default function App() {
                   <div className={`order-2 ${isEven ? 'lg:order-2' : 'lg:order-1'} w-full`}>
                     {service.id === 'quarto-infantil' ? (
                       <KidsRoomCarousel />
+                    ) : CAROUSEL_IMAGES_BY_SERVICE[service.id] ? (
+                      <ServiceCarousel images={CAROUSEL_IMAGES_BY_SERVICE[service.id]} serviceTitle={service.title} />
                     ) : (
                       <div className="aspect-[4/3] sm:aspect-square w-full overflow-hidden border border-white/10 shadow-2xl bg-[#0c0c0c]">
                         <img 
